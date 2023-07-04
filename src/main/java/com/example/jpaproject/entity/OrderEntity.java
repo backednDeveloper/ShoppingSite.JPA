@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.catalina.LifecycleState;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -17,22 +18,25 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
     private int id;
-    @ManyToMany
-    @JoinTable(name = "Customers",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "customer_id")
-    )
-    private List<CustomerEntity> CustomerEntityList;
-    @ManyToMany
-    @JoinTable(name = "Seller",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "seller_id")
-    )
-    private List<SellerEntity> SellerEntityList;
+    @Column(name = "quantity")
+    private int quantity;
+    @Column(name = "shipping_adress")
+    private String adress;
+    @Column(name = "order_weight")
+    private int weight;
+    @Column(name = "total_price")
+    private int price;
+    @Column(name = "order_status")
+    private int status;
+    @Column(name = "order_date")
+    private Date date;
     @ManyToMany
     @JoinTable(name = "Products",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<ProductEntity> ProductentityList;
+    @OneToOne
+    @JoinColumn(name = "payment_id")
+    private PaymentEntity paymentEntity;
 }

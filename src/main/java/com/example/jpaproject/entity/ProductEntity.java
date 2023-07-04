@@ -20,4 +20,7 @@ public class ProductEntity {
     private int price;
     @Column(name = "product_category")
     private String category;
+    @OneToOne
+    @JoinColumn(name = "confirm_id")
+    private ConfirmEntity confirmEntity;
 }

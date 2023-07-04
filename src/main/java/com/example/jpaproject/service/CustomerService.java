@@ -27,5 +27,6 @@ public class CustomerService {
             modelAndView.addObject("Congratulations", customerEntity.getId());
             modelAndView.setViewName("Account has been occured");
         }
+        return null;
     }
 }

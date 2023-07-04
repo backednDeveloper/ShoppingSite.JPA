@@ -20,5 +20,8 @@ public class PaymentEntity {
     private Long password;
     @Column(name = "cart_cvv")
     private int cvv;
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private OrderEntity orderEntity;
 
 }
