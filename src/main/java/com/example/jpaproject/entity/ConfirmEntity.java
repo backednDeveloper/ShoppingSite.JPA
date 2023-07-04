@@ -15,6 +15,8 @@ public class ConfirmEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "confirm_id")
     private int id;
+    @Column(name = "customer_id")
+    private int customer_id;
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private CustomerEntity customerEntity;

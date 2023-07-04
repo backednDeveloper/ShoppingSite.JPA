@@ -1,9 +1,9 @@
-//package com.example.jpaproject.config;
-//
-//import org.springframework.context.annotation.Configuration;
-//
-//@Configuration
-//public class ConfirmationTokenConfig {
-//    return
-//
-//}
+package com.example.jpaproject.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class ConfirmationTokenConfig{
+
+}

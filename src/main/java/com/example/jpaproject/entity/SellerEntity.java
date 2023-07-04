@@ -16,6 +16,8 @@ public class SellerEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "seller_id")
     private int id;
+    @Column(name = "seller_status")
+    private int status;
     @Column(name = "seller_name")
     private String name;
     @Column(name = "seller_email")

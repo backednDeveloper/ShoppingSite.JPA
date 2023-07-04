@@ -19,6 +19,8 @@ public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customer_id")
     private int id;
+    @Column(name = "customer_status")
+    private int status;
     @Column(name = "customer_name")
     private String name;
     @Column(name = "customer_email")

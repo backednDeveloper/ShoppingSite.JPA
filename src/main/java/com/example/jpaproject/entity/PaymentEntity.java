@@ -14,6 +14,8 @@ public class PaymentEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "Payment_id")
     private int id;
+    @Column(name = "payment_status")
+    private int status;
     @Column(name = "cart_number")
     private Long number;
     @Column(name = "cart_password")
