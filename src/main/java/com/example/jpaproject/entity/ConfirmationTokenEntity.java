@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class ConfirmationTokenEntity {
     @Column(name = "confirmation_token")
     private String token;
     @Column(name = "create_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @OneToOne(targetEntity = CustomerEntity.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "id", nullable = false)
@@ -27,12 +29,12 @@ public class ConfirmationTokenEntity {
     @OneToOne(targetEntity = SellerEntity.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "id", nullable = false)
     private SellerEntity sellerEntity;
-    public void ConfirmationTokenForCustomer(CustomerEntity customerEntity){
+    public ConfirmationTokenEntity(CustomerEntity customerEntity){
         this.customerEntity=customerEntity;
         this.token= String.valueOf(UUID.randomUUID());
         this.date = new Date();
     }
-    public void ConfirmationTokenForSeller(SellerEntity sellerEntity){
+    public ConfirmationTokenEntity(SellerEntity sellerEntity){
         this.sellerEntity=sellerEntity;
         this.date=new Date();
         this.token= String.valueOf(UUID.randomUUID());

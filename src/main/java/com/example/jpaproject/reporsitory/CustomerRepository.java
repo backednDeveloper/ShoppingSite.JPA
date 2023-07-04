@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
     Optional<CustomerEntity> findById(Integer id);
-    CustomerEntity updateCustomerEntitiesById(Integer id);
-    CustomerEntity deleteCustomerEntitiesById(Integer id);
+
+    CustomerEntity deleteById(Integer id);
 }

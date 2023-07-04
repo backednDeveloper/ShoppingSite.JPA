@@ -18,6 +18,7 @@ public class PaymentConfirmEntity {
     @Column(name = "payment_confirm_id")
     private int id;
     @Column(name = "confirmation_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @Column(name = "confirmation_status")
     private int status;

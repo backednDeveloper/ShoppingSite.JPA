@@ -27,5 +27,6 @@ public class SellerEntity {
     @Column(name = "seller_phone")
     private Long phone;
     @Column(name = "seller_registration_date_")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date registration_date;
 }

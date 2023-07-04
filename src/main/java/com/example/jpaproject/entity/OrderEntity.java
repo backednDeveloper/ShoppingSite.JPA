@@ -1,11 +1,15 @@
 package com.example.jpaproject.entity;
 
 import jakarta.persistence.*;
+import jdk.jfr.Timespan;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.catalina.LifecycleState;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +33,7 @@ public class OrderEntity {
     @Column(name = "order_status")
     private int status;
     @Column(name = "order_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @ManyToMany
     @JoinTable(name = "Products",

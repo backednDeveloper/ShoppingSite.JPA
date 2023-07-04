@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -30,5 +31,6 @@ public class CustomerEntity {
     @Column(name = "customer_phone")
     private Long phone;
     @Column(name = "customer_registration_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date registration_date;
 }
