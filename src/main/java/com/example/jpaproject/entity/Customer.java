@@ -7,26 +7,28 @@ import lombok.Setter;
 
 import java.util.Date;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-public class SellerEntity {
+@Table(name = "customers")
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "seller_id")
+    @Column(name = "customer_id")
     private int id;
-    @Column(name = "seller_status")
+    @Column(name = "customer_status")
     private int status;
-    @Column(name = "seller_name")
+    @Column(name = "customer_name")
     private String name;
-    @Column(name = "seller_email")
+    @Column(name = "customer_email")
     private String email;
-    @Column(name = "seller_adress")
+    @Column(name = "customer_adress")
     private String adress;
-    @Column(name = "seller_phone")
+    @Column(name = "customer_phone")
     private Long phone;
-    @Column(name = "seller_registration_date_")
+    @Column(name = "customer_registration_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registration_date;
 }

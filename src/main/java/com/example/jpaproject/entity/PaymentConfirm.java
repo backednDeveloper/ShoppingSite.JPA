@@ -1,7 +1,6 @@
 package com.example.jpaproject.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,8 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-public class PaymentConfirmEntity {
+@Table(name = "payment_confirms")
+public class PaymentConfirm {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "payment_confirm_id")
@@ -23,9 +23,9 @@ public class PaymentConfirmEntity {
     @Column(name = "confirmation_status")
     private int status;
     @OneToOne
-    @JoinColumn(name = "payment_id")
-    private PaymentEntity paymentEntity;
+    @JoinColumn(name = "Payment_id")
+    private Payment paymentEntity;
     @OneToOne
     @JoinColumn(name = "confirm_id")
-    private ConfirmEntity confirmEntity;
+    private Confirm confirmEntity;
 }

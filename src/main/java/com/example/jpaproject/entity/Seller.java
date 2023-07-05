@@ -3,34 +3,31 @@ package com.example.jpaproject.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
 import java.util.Date;
-
 
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Entity
-public class CustomerEntity {
+@Table(name = "sellers")
+public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "customer_id")
+    @Column(name = "seller_id")
     private int id;
-    @Column(name = "customer_status")
+    @Column(name = "seller_status")
     private int status;
-    @Column(name = "customer_name")
+    @Column(name = "seller_name")
     private String name;
-    @Column(name = "customer_email")
+    @Column(name = "seller_email")
     private String email;
-    @Column(name = "customer_adress")
+    @Column(name = "seller_adress")
     private String adress;
-    @Column(name = "customer_phone")
+    @Column(name = "seller_phone")
     private Long phone;
-    @Column(name = "customer_registration_date")
+    @Column(name = "seller_registration_date_")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registration_date;
 }

@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class ProductEntity {
+@Table(name = "product_entitys")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "product_id")
@@ -22,5 +23,5 @@ public class ProductEntity {
     private String category;
     @OneToOne
     @JoinColumn(name = "confirm_id")
-    private ConfirmEntity confirmEntity;
+    private Confirm confirmEntity;
 }

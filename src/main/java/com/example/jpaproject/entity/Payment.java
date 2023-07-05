@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class PaymentEntity {
+@Table(name = "payments")
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "Payment_id")
@@ -24,6 +25,6 @@ public class PaymentEntity {
     private int cvv;
     @OneToOne
     @JoinColumn(name = "order_id")
-    private OrderEntity orderEntity;
+    private Order orderEntity;
 
 }

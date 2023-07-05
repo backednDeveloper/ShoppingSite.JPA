@@ -1,14 +1,14 @@
 package com.example.jpaproject.reporsitory;
 
-import com.example.jpaproject.entity.CustomerEntity;
+import com.example.jpaproject.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
-    Optional<CustomerEntity> findById(Integer id);
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    Optional<Customer> findById(Integer id);
 
-    CustomerEntity deleteById(Integer id);
+    Customer deleteById(Integer id);
 }

@@ -1,15 +1,10 @@
 package com.example.jpaproject.entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.Timespan;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.catalina.LifecycleState;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +12,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-public class OrderEntity {
+@Table(name = "orders")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
@@ -40,8 +36,8 @@ public class OrderEntity {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private List<ProductEntity> ProductentityList;
+    private List<Product> ProductentityList;
     @OneToOne
-    @JoinColumn(name = "payment_id")
-    private PaymentEntity paymentEntity;
+    @JoinColumn(name = "Payment_id")
+    private Payment paymentEntity;
 }

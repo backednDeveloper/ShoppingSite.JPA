@@ -11,7 +11,8 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-public class TokenEntity {
+@Table(name = "tokens")
+public class Token {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "token_id")
@@ -24,5 +25,5 @@ public class TokenEntity {
     @Column(name = "token_last_used_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date token_last_used_date;
-
+    public Token(String token){}
 }
