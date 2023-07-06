@@ -36,4 +36,36 @@ public class SellerService {
         }
         return modelAndView;
     }
+    public ModelAndView updateSeller (ModelAndView modelAndView, Seller seller){
+        Optional<Seller> searchSeller = sellerRepository.findById(seller.getId());
+        if(searchSeller.isPresent()){
+            Seller updateSeller = new Seller();
+            updateSeller.setId(seller.getId());
+            updateSeller.setName(seller.getName());
+            updateSeller.setAdress(seller.getAdress());
+            updateSeller.setPhone(seller.getPhone());
+            updateSeller.setEmail(seller.getEmail());
+            sellerRepository.save(updateSeller);
+            modelAndView.addObject("Account" , seller);
+            modelAndView.setViewName("Account has been update");
+        }
+        else {
+            modelAndView.addObject("Error", "This user not found");
+            modelAndView.setViewName("Please first registration");
+        }
+        return modelAndView;
+    }
+    public ModelAndView deleteSeller(ModelAndView modelAndView, Seller seller){
+        Optional<Seller> searchSeller = sellerRepository.findById(seller.getId());
+        if(searchSeller.isPresent()){
+            sellerRepository.delete(seller);
+            modelAndView.addObject("Confirm" , "Your account has been deleted");
+            modelAndView.setViewName("See you again");
+        }
+        else {
+            modelAndView.addObject("Error" , "This account is not available");
+            modelAndView.setViewName("Please try again");
+        }
+        return modelAndView;
+    }
 }

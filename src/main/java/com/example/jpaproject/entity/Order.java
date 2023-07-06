@@ -17,7 +17,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
-    private int id;
+    private long id;
     @Column(name = "quantity")
     private int quantity;
     @Column(name = "shipping_adress")

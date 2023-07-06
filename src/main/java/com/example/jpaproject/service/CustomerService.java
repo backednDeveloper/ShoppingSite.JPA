@@ -52,8 +52,8 @@ public class CustomerService {
         if (token.isPresent()) {
             Optional<Customer> customer = customerRepository.findById(customerEntity.getId());
             if (customer.isPresent()) {
-                Customer entity = customer.get();
-                customerRepository.save(entity);
+                Customer newCustomer = customer.get();
+                customerRepository.save(newCustomer);
                 modelAndView.setViewName("Congratulation");
             } else {
                 modelAndView.addObject("message", "This link is invalid");
@@ -82,8 +82,6 @@ public class CustomerService {
 
         if (optionalCustomer.isPresent()) {
             Customer customer = optionalCustomer.get();
-            customer.setRegistration_date(entity.getRegistration_date());
-            customer.setStatus(entity.getStatus());
             customer.setName(entity.getName());
             customer.setPhone(entity.getPhone());
             customer.setEmail(entity.getEmail());
