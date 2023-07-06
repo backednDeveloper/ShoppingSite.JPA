@@ -13,10 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/customer")
 public class CustomerController {
     private final CustomerService service;
-    @GetMapping("/register")
-    public ModelAndView customerDisplayRegistration(ModelAndView modelAndView, Customer customerEntity){
-        return service.customerDisplayRegistration(modelAndView,customerEntity);
-    }
     @PostMapping("/register")
     public ModelAndView customerRegistration(ModelAndView modelAndView, Customer customerEntity, SimpleMailMessage message){
         return service.customerRegistration(modelAndView,customerEntity,message);
@@ -26,8 +22,8 @@ public class CustomerController {
         return service.confirmCustomerAccount(modelAndView, customerEntity, tokenEntity);
     }
     @DeleteMapping("delete")
-    public ModelAndView deleteCustomerAccount(ModelAndView modelAndView, Customer entity){
-        return service.deleteCustomerAccount(modelAndView, entity);
+    public ModelAndView deleteConfirmedCustomerAccount(ModelAndView modelAndView, Customer entity){
+        return service.deleteConfirmedCustomerAccount(modelAndView, entity);
     }
     @PutMapping("/update")
     public ModelAndView updateCustomerAccount(ModelAndView modelAndView, Customer entity){

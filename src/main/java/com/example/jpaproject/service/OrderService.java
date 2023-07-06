@@ -1,30 +1,59 @@
 package com.example.jpaproject.service;
 
+import com.example.jpaproject.entity.Order;
 import com.example.jpaproject.entity.Product;
 import com.example.jpaproject.reporsitory.OrderRepository;
+import com.example.jpaproject.reporsitory.ProductOrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class OrderService {
+    private final ProductOrderRepository ProductorderRepository;
     private final OrderRepository orderRepository;
-    private final EmailService email;
 
-    public List<Product> allOrders( ModelAndView modelAndView){
-        List<Product> searchOrder = orderRepository.findAll();
-        if (searchOrder.isEmpty()){
+    public List<Order> allOrders(ModelAndView modelAndView) {
+        List<Order> searchOrder = orderRepository.findAll();
+        if (searchOrder.isEmpty()) {
             modelAndView.addObject("Error", "Does not find any order");
             modelAndView.setViewName("Please create new order");
-        }else {
-            modelAndView.addObject("Order" , searchOrder);
+            log.atInfo().log("Order list is empyte");
+        } else {
+            modelAndView.addObject("Order", searchOrder);
             modelAndView.setViewName("All Orders");
+            log.atInfo().log("Shows all orders");
         }
         return searchOrder;
     }
 
+    public ModelAndView addProductsToOrder(ModelAndView modelAndView, Product product) {
+        Optional<Product> sendRequest = ProductorderRepository.findById(product.getId());
+        log.atInfo().log("Send request for added products to order");
+        if (sendRequest.isPresent()) {
+            Order order = new Order();
+            order.setDate(new Date());
+            order.setAdress(order.getAdress()); //???
+            order.setWeight(product.getWeight());
+            order.setId(product.getId());
+            order.setPrice(product.getPrice());
+            orderRepository.save(order);
+            modelAndView.addObject("Order", order);
+            modelAndView.setViewName("Order Information");
+            log.atInfo().log("Added products to Order");
+        } else {
+            modelAndView.addObject("Error", "This order not confirmed");
+            modelAndView.setViewName("Please try again");
+            log.atInfo().log("Order not found");
+        }
+        return modelAndView;
+    }
 
 }

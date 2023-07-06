@@ -19,6 +19,8 @@ public class Product {
     private String name;
     @Column(name = "product_price")
     private int price;
+    @Column(name = "product_weight")
+    private int weight;
     @Column(name = "product_category")
     private String category;
     @OneToOne
