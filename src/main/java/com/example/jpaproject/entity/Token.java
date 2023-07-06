@@ -22,8 +22,5 @@ public class Token {
     @Column(name = "token_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date token_created_date;
-    @Column(name = "token_last_used_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date token_last_used_date;
-    public Token(String token){}
+    public Token( String token, Date token_created_date){}
 }

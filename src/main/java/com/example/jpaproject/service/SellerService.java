@@ -3,12 +3,14 @@ package com.example.jpaproject.service;
 import com.example.jpaproject.entity.ConfirmationToken;
 import com.example.jpaproject.entity.Seller;
 import com.example.jpaproject.reporsitory.ConfirmationTokenRepository;
+import com.example.jpaproject.reporsitory.ConfirmSellerRepository;
 import com.example.jpaproject.reporsitory.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,7 +19,32 @@ public class SellerService {
     private final EmailService emailService;
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final SellerRepository sellerRepository;
-    public ModelAndView createSellerConfirmation(ModelAndView modelAndView, Seller seller, SimpleMailMessage message){
+    private final ConfirmSellerRepository sellerConfirmReposirtory;
+    public List<Seller> allConfirmedSeller(ModelAndView modelAndView){
+        List<Seller> allSellers = sellerConfirmReposirtory.findAll();
+        if (allSellers.isEmpty()){
+            modelAndView.addObject("Error" , "Does not find any seller");
+            modelAndView.setViewName("Please regist first");
+        }
+        else {
+            modelAndView.addObject("Seller" , allSellers);
+            modelAndView.setViewName("All Sellers");
+        }
+        return allSellers;
+    }
+    public List<Seller> allNotConfirmedSeller(ModelAndView modelAndView){
+        List<Seller> allSellers = sellerRepository.findAll();
+        if (allSellers.isEmpty()){
+            modelAndView.addObject("Error" , "Does not find any seller");
+            modelAndView.setViewName("Please regist first");
+        }
+        else {
+            modelAndView.addObject("Seller" , allSellers);
+            modelAndView.setViewName("All Sellers");
+        }
+        return allSellers;
+    }
+    public ModelAndView sellerRegistration(ModelAndView modelAndView, Seller seller, SimpleMailMessage message){
         Optional<Seller> sellerSearch = sellerRepository.findById(seller.getId());
         if(sellerSearch.isEmpty()){
             sellerRepository.save(seller);
@@ -33,6 +60,23 @@ public class SellerService {
         else {
             modelAndView.addObject("Error" , seller);
             modelAndView.setViewName("Please login!");
+        }
+        return modelAndView;
+    }
+    public ModelAndView sellerAccountConfirm(ModelAndView modelAndView, ConfirmationToken token, Seller seller){
+        Optional<ConfirmationToken> searcToken = confirmationTokenRepository.findById((int) token.getId());
+        if(searcToken.isPresent()){
+            Optional<Seller> searchSeller = sellerRepository.findById(seller.getId());
+            if(searchSeller.isPresent()){
+                Seller newSeller = searchSeller.get();
+                sellerConfirmReposirtory.save(newSeller);
+                modelAndView.addObject("Confirm" , newSeller);
+                modelAndView.setViewName("Congratualiton seller is confirm");
+            }
+            else {
+                modelAndView.addObject("Error" , "Account not found");
+                modelAndView.setViewName("Please try again");
+            }
         }
         return modelAndView;
     }

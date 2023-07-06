@@ -2,13 +2,16 @@ package com.example.jpaproject.service;
 
 import com.example.jpaproject.entity.ConfirmationToken;
 import com.example.jpaproject.entity.Customer;
+import com.example.jpaproject.reporsitory.ConfirmCustomerProfilesRepository;
 import com.example.jpaproject.reporsitory.ConfirmationTokenRepository;
 import com.example.jpaproject.reporsitory.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,11 +20,31 @@ public class CustomerService {
     private final EmailService emailService;
     private final CustomerRepository customerRepository;
     private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final ConfirmCustomerProfilesRepository confirmCustomerProfilesRepository;
 
-    public ModelAndView customerDisplayRegistration(ModelAndView modelAndView, Customer customerEntity) {
-        modelAndView.addObject("Customer Registration", customerEntity);
-        modelAndView.setViewName("Register");
-        return modelAndView;
+    public List<Customer> allConfirmedCustomers(ModelAndView modelAndView, Customer customer) {
+        List<Customer> allCustomer = confirmCustomerProfilesRepository.findAll();
+        if(allCustomer.isEmpty()){
+            modelAndView.addObject("Error" , "Have not any Customer");
+            modelAndView.setViewName("Please Registration");
+        }
+        else {
+            modelAndView.addObject("Customers",allCustomer);
+            modelAndView.setViewName("All Customers");
+        }
+        return allCustomer;
+    }
+    public List<Customer> allNotConfirmedCustomers(ModelAndView modelAndView, Customer customer) {
+        List<Customer> allCustomer = customerRepository.findAll();
+        if(allCustomer.isEmpty()){
+            modelAndView.addObject("Error" , "Have not any Customer");
+            modelAndView.setViewName("Please Registration");
+        }
+        else {
+            modelAndView.addObject("Customers",allCustomer);
+            modelAndView.setViewName("All Customers");
+        }
+        return allCustomer;
     }
 
     public ModelAndView customerRegistration(ModelAndView modelAndView, Customer customerEntity, SimpleMailMessage message) {
@@ -53,7 +76,7 @@ public class CustomerService {
             Optional<Customer> customer = customerRepository.findById(customerEntity.getId());
             if (customer.isPresent()) {
                 Customer newCustomer = customer.get();
-                customerRepository.save(newCustomer);
+                confirmCustomerProfilesRepository.save(newCustomer);
                 modelAndView.setViewName("Congratulation");
             } else {
                 modelAndView.addObject("message", "This link is invalid");

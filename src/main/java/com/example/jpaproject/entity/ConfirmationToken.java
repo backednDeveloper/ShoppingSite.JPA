@@ -32,12 +32,12 @@ public class ConfirmationToken {
     private Seller sellerEntity;
     public ConfirmationToken(Customer customerEntity){
         this.customerEntity=customerEntity;
-        this.token= new Token(String.valueOf(UUID.randomUUID()));
+        this.token= new Token(String.valueOf(UUID.randomUUID()), date);
         this.date = new Date();
     }
     public ConfirmationToken(Seller sellerEntity){
         this.sellerEntity=sellerEntity;
-        this.token= new Token(String.valueOf(UUID.randomUUID()));
+        this.token= new Token(String.valueOf(UUID.randomUUID()) , date);
         this.date= new Date();
     }
 }
