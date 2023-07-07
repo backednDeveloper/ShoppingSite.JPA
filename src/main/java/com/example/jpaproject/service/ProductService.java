@@ -1,7 +1,7 @@
 package com.example.jpaproject.service;
 
 import com.example.jpaproject.entity.Product;
-import com.example.jpaproject.reporsitory.ProductOrderRepository;
+import com.example.jpaproject.reporsitory.SelectedProductsOrderRepository;
 import com.example.jpaproject.reporsitory.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
-    private final ProductOrderRepository orderRepository;
+    private final SelectedProductsOrderRepository orderRepository;
 
     public List<Product> allProducts(ModelAndView modelAndView) {
         List<Product> allProducts1 = orderRepository.findAll();

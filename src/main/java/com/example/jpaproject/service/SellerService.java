@@ -34,7 +34,7 @@ public class SellerService {
             modelAndView.setViewName("All Sellers");
             log.atInfo().log("Sellers list is empty");
         }
-        return allSellers;
+        return (List<Seller>) modelAndView;
     }
     public List<Seller> allNotConfirmedSeller(ModelAndView modelAndView){
         List<Seller> allSellers = sellerRepository.findAll();
@@ -50,7 +50,7 @@ public class SellerService {
         }
         return allSellers;
     }
-    public ModelAndView sellerRegistration(ModelAndView modelAndView, Seller seller, SimpleMailMessage message){
+    public ModelAndView sellerRegistration(ModelAndView modelAndView, Seller seller){
         Optional<Seller> sellerSearch = sellerRepository.findById(seller.getId());
         if(sellerSearch.isEmpty()){
             sellerRepository.save(seller);
@@ -59,6 +59,7 @@ public class SellerService {
             log.atInfo().log("Token is created");
             confirmationTokenRepository.save(token);
             log.atInfo().log("Token is saved");
+            SimpleMailMessage message = new SimpleMailMessage();
             message.setText("");
             message.setFrom("emilaze77@gmail.com");
             message.setText("Please click here : " +

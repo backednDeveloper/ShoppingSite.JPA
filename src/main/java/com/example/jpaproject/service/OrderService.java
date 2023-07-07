@@ -3,9 +3,10 @@ package com.example.jpaproject.service;
 import com.example.jpaproject.entity.Order;
 import com.example.jpaproject.entity.Product;
 import com.example.jpaproject.reporsitory.OrderRepository;
-import com.example.jpaproject.reporsitory.ProductOrderRepository;
+import com.example.jpaproject.reporsitory.SelectedProductsOrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,7 +18,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class OrderService {
-    private final ProductOrderRepository ProductorderRepository;
+    private final SelectedProductsOrderRepository ProductRepository;
     private final OrderRepository orderRepository;
 
     public List<Order> allOrders(ModelAndView modelAndView) {
@@ -34,14 +35,14 @@ public class OrderService {
         return searchOrder;
     }
 
-    public ModelAndView addProductsToOrder(ModelAndView modelAndView, Product product) {
-        Optional<Product> sendRequest = ProductorderRepository.findById(product.getId());
+    public ModelAndView addProductsToOrderList(ModelAndView modelAndView, Product product) {
+        Optional<Product> sendRequest = ProductRepository.findById(product.getId());
         log.atInfo().log("Send request for added products to order");
         if (sendRequest.isPresent()) {
             Order order = new Order();
             order.setDate(new Date());
             order.setAdress(order.getAdress()); //???
-            order.setWeight(product.getWeight());
+            order.setWeight(Integer.parseInt(product.getWeight()));
             order.setId(product.getId());
             order.setPrice(product.getPrice());
             orderRepository.save(order);
@@ -55,5 +56,12 @@ public class OrderService {
         }
         return modelAndView;
     }
+//    public ModelAndView deletedProductFromOrderLists(ModelAndView modelAndView, Product product){
+//        Optional<Product> sendRequest = ProductRepository.findById(product.getId());
+//        log.atInfo().log("Send request for added products to order");
+//        if (sendRequest.isPresent()) {
+//
+//        }
+//    }
 
 }

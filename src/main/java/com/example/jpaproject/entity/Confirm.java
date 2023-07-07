@@ -12,7 +12,7 @@ import lombok.Setter;
 @Table(name = "confirms")
 public class Confirm {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "confirm_id")
     private int id;
     @ManyToOne

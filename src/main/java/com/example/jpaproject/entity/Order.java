@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private long id;
     @Column(name = "quantity")
@@ -37,7 +37,4 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> ProductentityList;
-    @OneToOne
-    @JoinColumn(name = "Payment_id")
-    private Payment paymentEntity;
 }

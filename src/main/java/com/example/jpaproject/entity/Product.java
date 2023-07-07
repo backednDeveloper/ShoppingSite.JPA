@@ -12,7 +12,7 @@ import lombok.Setter;
 @Table(name = "product_entitys")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private long id;
     @Column(name = "product_name")
@@ -20,7 +20,7 @@ public class Product {
     @Column(name = "product_price")
     private int price;
     @Column(name = "product_weight")
-    private int weight;
+    private String weight;
     @Column(name = "product_category")
     private String category;
     @OneToOne

@@ -34,7 +34,7 @@ public class CustomerService {
             modelAndView.setViewName("All Customers");
             log.atInfo().log("Shows all not confirmed Customers");
         }
-        return allCustomer;
+        return (List<Customer>) modelAndView;
     }
     public List<Customer> allNotConfirmedCustomers(ModelAndView modelAndView, Customer customer) {
         List<Customer> allCustomer = customerRepository.findAll();
@@ -51,7 +51,7 @@ public class CustomerService {
         return allCustomer;
     }
 
-    public ModelAndView customerRegistration(ModelAndView modelAndView, Customer customerEntity, SimpleMailMessage message) {
+    public ModelAndView customerRegistration(ModelAndView modelAndView, Customer customerEntity) {
         Optional<Customer> repository = customerRepository.findById(customerEntity.getId());
         if (repository.isEmpty()) {
             customerRepository.save(customerEntity);
@@ -60,6 +60,7 @@ public class CustomerService {
             log.atInfo().log("Confirmation token is created");
             confirmationTokenRepository.save(confirmationToken);
             log.atInfo().log("Confirmation token is saved to confirmationTokenRepository");
+            SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(customerEntity.getEmail());
             message.setSubject("Complete Registration!");
             message.setFrom("emilaze77@gmail.com");
